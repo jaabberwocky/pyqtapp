@@ -4,17 +4,41 @@ from PyQt5 import QtWidgets, QtGui
 def window():
     app = QtWidgets.QApplication(sys.argv)
     w = QtWidgets.QWidget()
-    l1 = QtWidgets.QLabel(w) # add label to window, so pass it as arg
-    l1.setText("Hello world")
 
-    l2 = QtWidgets.QLabel(w)
-    l2.setPixmap(QtGui.QPixmap('globe.png').scaledToWidth(64))
+    # widgets
+    l = QtWidgets.QLabel(w) # add label to window, so pass it as arg
+    l.setText("Look at me")
 
-    w.setWindowTitle('Tobias PyQt5 Lesson 1')
+    b = QtWidgets.QPushButton(w)
+    b.setText("Push me")
+
+    globe = QtGui.QPixmap('globe.png').scaledToWidth(64)
+    p = QtWidgets.QLabel(w)
+    p.setPixmap(globe)
+
+    # box layout
+    v_box = QtWidgets.QVBoxLayout()
+    v_box.addWidget(b)
+
+    ## this makes it all centred by stacking two Stretch on top of each widget for each horizontal box
+    h_box = QtWidgets.QHBoxLayout()
+    h_box.addStretch()
+    h_box.addWidget(l)
+    h_box.addStretch()
+
+    h_box2 = QtWidgets.QHBoxLayout()
+    h_box2.addStretch()
+    h_box2.addWidget(p)
+    h_box2.addStretch()
+    
+    v_box.addLayout(h_box)
+    v_box.addLayout(h_box2)
+    w.setWindowTitle('pyqt5')
     w.setGeometry(100, 100, 300, 200)
-    l1.move(130, 20)
-    l2.move(120, 90)
+    w.setLayout(v_box)
+
     w.show()
     sys.exit(app.exec_())
 
-window()
+if __name__ == "__main__":
+    window()
